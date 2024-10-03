@@ -9,6 +9,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: BenchWood
     second: {fileID: 2100000, guid: 37fd94813912c5345b812be2de6e8b26, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Pulpit2Wood
+    second: {fileID: 2100000, guid: 336f7eabeb1a25c44ae16490cbf2b2d0, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
