@@ -17,6 +17,176 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: ConcreteBare
+    second: {fileID: 2100000, guid: 0856337e17f7b8840a6ce91e529edac9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Roof_tiles
+    second: {fileID: 2100000, guid: 749456e0bd0574b4e956483d33633bb4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Shops
+    second: {fileID: 2100000, guid: f800a0095af0aa34fa878475869e5003, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Shops_01
+    second: {fileID: 2100000, guid: f7f44e132584b4841a464995adea0a29, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Shops_02
+    second: {fileID: 2100000, guid: 1781f38568a05fd4c8b4a42bfdb84436, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Shops_03
+    second: {fileID: 2100000, guid: bad667b901628fc47ac4800653a808fc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Shops_04
+    second: {fileID: 2100000, guid: 33a2d9bd6295a954ea905f2cf346a246, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Shops_05
+    second: {fileID: 2100000, guid: 1a6d1e58a698c1d4982d1119b209bb12, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Shops_06
+    second: {fileID: 2100000, guid: fb27ac800420526428932aaedb296abf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Shops_07
+    second: {fileID: 2100000, guid: 0def67a492e69a643891fd82cd9fee27, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Shops_08
+    second: {fileID: 2100000, guid: 9e6e0a2e13e991148a237b977506af4d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Shops_09
+    second: {fileID: 2100000, guid: 6af7ea95c1d2c4646ad89a4d34ab6d5d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Shops_10
+    second: {fileID: 2100000, guid: 9d24b6995aad75247a90f9fdab33f977, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Shops_11
+    second: {fileID: 2100000, guid: ce5a8614dfc6fc042ba0a0993149068d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Shops_12
+    second: {fileID: 2100000, guid: c7e5e359ec075ed4fabab74b6edc0fb0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Shops_13
+    second: {fileID: 2100000, guid: 8c3a47aa4227e3c408e492cbb9a2be44, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Shops_14
+    second: {fileID: 2100000, guid: 7f3376bb8f0ed3b4da8130a1d489d98f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Shops_15
+    second: {fileID: 2100000, guid: 0f62565e1eeca2341b21e998a3952016, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Shops_16
+    second: {fileID: 2100000, guid: 716c98278c65e224cabdfedd3217af94, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Shops_17
+    second: {fileID: 2100000, guid: 4d4023be788ef8b41913ffb8d6b94565, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Shops_18
+    second: {fileID: 2100000, guid: 64f213821b8cfc64c818b73e3659fd7e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Shops_19
+    second: {fileID: 2100000, guid: 33d238701f0838b488d4c4d7bc9ef38f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Shops_20
+    second: {fileID: 2100000, guid: e6b6032b17ff724428937d428a84ba29, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Shops_21
+    second: {fileID: 2100000, guid: 2bf552546b515b44e902b06b99e8a0bf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Shops_22
+    second: {fileID: 2100000, guid: f8f6e0e833f8b9a429620d308b8a4d0f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Shops_23
+    second: {fileID: 2100000, guid: 26277e8c7e4435449acec94da5142635, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Shops_24
+    second: {fileID: 2100000, guid: 2aee4ddc3d0b53f4a9df8d114d2dbb32, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Shops_25
+    second: {fileID: 2100000, guid: 50bccadc40427684496e2b8e6aa2a110, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Shops_26
+    second: {fileID: 2100000, guid: f493c02c6b1441f4382f596fce029733, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Shops_27
+    second: {fileID: 2100000, guid: b63f00a1b9e80d44fa637f2c231c7339, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Shops_28
+    second: {fileID: 2100000, guid: 4f861729ecbc2384d8a7eb9d638ddc93, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Shops_29
+    second: {fileID: 2100000, guid: 2a572eaeca9767e4c83a02945bc817f9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Shops_30
+    second: {fileID: 2100000, guid: 8e3932d97652e034b8f7fedfca202b97, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Shops_31
+    second: {fileID: 2100000, guid: 12addafc3309383459112e0067fe0583, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: brick_modern
     second: {fileID: 2100000, guid: 251ed4a8e845b8e4ca25885e02225728, type: 2}
   - first:
