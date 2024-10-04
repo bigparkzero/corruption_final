@@ -3,7 +3,22 @@ guid: 28f0b5d9e728b114a8bdb61d963f0f8a
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SP_AFG_Lightpole_Big_1-3
+    second: {fileID: 2100000, guid: 3cc6e0503ee3ba645998d8cfad86edb8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SP_TNR_Electricpole_1-8
+    second: {fileID: 2100000, guid: 591e61d63ba828943921f5fb6025af03, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SP_TNR_TrafficLight_old
+    second: {fileID: 2100000, guid: ccf99f62ba06a6f4fb282c9739424ecb, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -90,7 +105,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 0.017
+    globalScale: 1.7
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
