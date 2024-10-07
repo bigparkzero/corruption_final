@@ -17,22 +17,26 @@ public class FreezePlayer : GimmickOutput
         if (playerController == null)
         {
             Debug.LogWarning("PlayerController 스크립트가 오브젝트에 존재하지 않습니다.");
+            isDone = true;
         }
 
         if (characterMovement == null)
         {
             Debug.LogWarning("CharacterMovement 스크립트가 오브젝트에 존재하지 않습니다.");
+            isDone = true;
         }
 
         if (isFreeze)
         {
             if (playerController != null) playerController.enabled = false;
             if (characterMovement != null) characterMovement.enabled = false;
+            print("f");
         }
         else
         {
             if (playerController != null) playerController.enabled = true;
             if (characterMovement != null) characterMovement.enabled = true;
+            print("t");
         }
 
         isDone = true;
