@@ -17,6 +17,6 @@ public class TutorialUi : Singleton<TutorialUi>
     }
     public void CloesPopUp()
     {
-        panel.SetActive(true);
+        panel.SetActive(false);
     }
 }
