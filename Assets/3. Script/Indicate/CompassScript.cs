@@ -39,7 +39,8 @@ public class CompassScript : MonoBehaviour
     public void UpdateCompassBar(Transform rotationReference)
     {
         // set compass bar texture coordinates (플레이어의 Y축 회전을 기준으로 컴퍼스 이동)
-        Compass.uvRect = new Rect((rotationReference.eulerAngles.y / 360f) - .5f, 0f, 1f, 1f);
+        Compass.uvRect = new Rect(((rotationReference.eulerAngles.y / 360f) - 0.5f) * 2, 0f, 1f, 1f);
+
 
         // calculate 0-360 degrees value
         Vector3 perpDirection = Vector3.Cross(Vector3.forward, rotationReference.forward);
