@@ -32,6 +32,10 @@ public abstract class GimmickTrigger : MonoBehaviour
 
     public void InvokeEvent()
     {
+        if (InvokeEventEndDestroy)
+        {
+            Destroy(gameObject);
+        }
         if (triggerMultipleTimes)
         {
             for (int i = 0; i < OutputEvent.Count; i++)
