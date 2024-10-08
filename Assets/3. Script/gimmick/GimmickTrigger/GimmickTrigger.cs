@@ -6,6 +6,8 @@ using UnityEngine.Events;
 
 public abstract class GimmickTrigger : MonoBehaviour
 {
+    [Header("체크하면 함수 실행후 자기자신 파괴")]
+    public bool InvokeEventEndDestroy;
     public void test(string text)
     {
         Debug.Log(text);
@@ -103,6 +105,10 @@ public abstract class GimmickTrigger : MonoBehaviour
                 OutputEvent[i + 1].Invoke();
                 print(i + "번째 이벤트 실행");
             }
+        }
+        if (InvokeEventEndDestroy)
+        {
+            Destroy(gameObject);
         }
     }
 
