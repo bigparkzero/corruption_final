@@ -95,7 +95,7 @@ public abstract class GimmickTrigger : MonoBehaviour
                         }
                     }
 
-                    print("기다리는 중");
+                    print("<color=yellow>" + gameObject.name + "</color>" + "의" + "<color=bule>" + i + "</color>" + " 번째 이벤트 기다리는 중");
                 }
             }
 
@@ -103,12 +103,14 @@ public abstract class GimmickTrigger : MonoBehaviour
             if (i + 1 < OutputEvent.Count)
             {
                 OutputEvent[i + 1].Invoke();
-                print(i + "번째 이벤트 실행");
+                print("<color=yellow>" + gameObject.name + "</color>" +" 의"+ "<color=bule>" + i + "</color>" + " 번째 이벤트 실행");
             }
         }
+        print("<color=yellow>" + gameObject.name + "</color>" + "의 모든 이벤트 실행 완료");
         if (InvokeEventEndDestroy)
         {
             Destroy(gameObject);
+            print("<color=yellow>" + gameObject.name + "</color>" + " 삭제됨");
         }
     }
 

@@ -30,13 +30,11 @@ public class FreezePlayer : GimmickOutput
         {
             if (playerController != null) playerController.enabled = false;
             if (characterMovement != null) characterMovement.enabled = false;
-            print("f");
         }
         else
         {
             if (playerController != null) playerController.enabled = true;
             if (characterMovement != null) characterMovement.enabled = true;
-            print("t");
         }
 
         isDone = true;
