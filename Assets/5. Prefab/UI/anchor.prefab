@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3028969085375267237}
   - component: {fileID: 1781185854686369520}
-  - component: {fileID: 6996837296730100764}
   m_Layer: 0
   m_Name: anchor
   m_TagString: Untagged
@@ -48,11 +47,3 @@ MonoBehaviour:
   ElementImage: {fileID: 21300000, guid: 741ea872f6aeaf9419aa4914aba35ff4, type: 3}
   compassAdderSize: {x: 50, y: 50}
   indicatorAdderSize: {x: 150, y: 150}
---- !u!33 &6996837296730100764
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8423346812991401419}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}

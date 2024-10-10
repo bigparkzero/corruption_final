@@ -6,7 +6,7 @@ public class CompassUiScript : Singleton<CompassUiScript>
 {
     public CompassBarClass CompassBar;
     public float CompassBarCurrentDegrees;
-    public Transform rotationReference;
+    private Transform rotationReference;
 
     [System.Serializable]
     public class CompassBarClass
@@ -18,6 +18,7 @@ public class CompassUiScript : Singleton<CompassUiScript>
 
     void Start()
     {
+        rotationReference = Camera.main.transform; 
         InitCompassBar();
     }
 
