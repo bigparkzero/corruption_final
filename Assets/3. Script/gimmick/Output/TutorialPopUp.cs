@@ -9,13 +9,19 @@ public class TutorialPopUp : GimmickOutput
     [Header("튜토리얼 팝업에 뜰 텍스트 \ninputgimmick에 event 에서 SetString()로 설정하실 수 있습니다")]
     [Multiline(4)]
     public string info;
+    private void Start()
+    {
+        isDone = false;
+    }
     public void open()
     {
         TutorialUi.Instance.OpenPopUp(info, image);
+        isDone = true;
     }
     public void close()
     {
         TutorialUi.Instance.CloesPopUp();
+        isDone = true;
     }
     public void SetImage(Sprite sprite)
     {
