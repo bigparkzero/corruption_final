@@ -27,8 +27,8 @@ MonoBehaviour:
   hasMovementInput: 0
   previousVelocity: {x: 0, y: 0, z: 0}
   currentMovementSettings:
-    walkSpeed: 1.65
-    sprintSpeed: 7
+    walkSpeed: 4
+    sprintSpeed: 10
     currentSpeed: 0
   velocity: {x: 0, y: 0, z: 0}
   groundLayer:
