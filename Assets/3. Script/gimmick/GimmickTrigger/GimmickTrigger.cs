@@ -75,6 +75,7 @@ public abstract class GimmickTrigger : MonoBehaviour
                 {
                     isOutputGimmick = true;
                 }
+               
             }
 
             if (isOutputGimmick)
