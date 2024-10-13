@@ -42,9 +42,9 @@ MonoBehaviour:
           isShake: 0
           shakeScale: 0
         HitKnockback:
-          isKnockback: 0
+          isKnockback: 1
           knockbackForce: 0
-          knockbackTime: 0
+          knockbackTime: 0.1
           intensity: 0
           wallHitable: 0
         HitAirborne:
@@ -90,9 +90,9 @@ MonoBehaviour:
           isShake: 0
           shakeScale: 0
         HitKnockback:
-          isKnockback: 0
+          isKnockback: 1
           knockbackForce: 0
-          knockbackTime: 0
+          knockbackTime: 0.1
           intensity: 0
           wallHitable: 0
         HitAirborne:
@@ -138,9 +138,9 @@ MonoBehaviour:
           isShake: 0
           shakeScale: 0
         HitKnockback:
-          isKnockback: 0
+          isKnockback: 1
           knockbackForce: 0
-          knockbackTime: 0
+          knockbackTime: 0.1
           intensity: 0
           wallHitable: 0
         HitAirborne:
@@ -186,10 +186,10 @@ MonoBehaviour:
           isShake: 0
           shakeScale: 0
         HitKnockback:
-          isKnockback: 0
-          knockbackForce: 0
-          knockbackTime: 0
-          intensity: 0
+          isKnockback: 1
+          knockbackForce: 0.5
+          knockbackTime: 0.2
+          intensity: 1
           wallHitable: 0
         HitAirborne:
           isAirborne: 0

@@ -4,7 +4,7 @@ using UnityEngine;
 public class AIPerception : MonoBehaviour
 {
     [Header("[Component]")]
-    public Character owner;
+    public CharacterActor owner;
 
     [Header("[AI Perception]")]
     public AISenseDetection senseDectection;
@@ -12,7 +12,7 @@ public class AIPerception : MonoBehaviour
 
     private void Awake()
     {
-        owner = GetComponent<Character>();
+        owner = GetComponent<CharacterActor>();
         senseDectection = GetComponent<AISenseDetection>();
         senseHearing = GetComponent<AISenseHearing>();
     }

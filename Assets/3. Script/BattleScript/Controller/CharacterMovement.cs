@@ -5,7 +5,7 @@ using UnityEngine;
 public class CharacterMovement : MonoBehaviour
 {
     [Header("[Character Movement]")]
-    public Character owner;
+    public CharacterActor owner;
     private Vector3 inputVelocity;
     private Vector3 inputDirection;
     private Vector3 desiredMoveDirection;
@@ -21,7 +21,7 @@ public class CharacterMovement : MonoBehaviour
 
     private void Start()
     {
-        owner = GetComponent<Character>();
+        owner = GetComponent<CharacterActor>();
     }
 
     private void Update()
@@ -53,6 +53,10 @@ public class CharacterMovement : MonoBehaviour
 
     private void UpdateCharacterInfo()
     {
+        if (owner.wallRideComponent.wallRideState == EWallRideState.Active) return;
+        if (owner.hitReactionComponent.combatData.combatType == ECombatType.HitReaction) return;
+        if (owner.attackComponent.skillState == ESkillState.Playing) return;
+
         Vector3 move = new Vector3(Input.GetAxisRaw("Horizontal"), 0.0f, Input.GetAxisRaw("Vertical"));
 
         // 키 입력 값
@@ -72,6 +76,15 @@ public class CharacterMovement : MonoBehaviour
         // 캐릭터 기준 방향 값
         desiredMoveDirection = inputDirection;
         desiredMoveDirection.Normalize();
+
+        if (Physics.Raycast(owner.characterController.center, desiredMoveDirection, out RaycastHit hit, owner.characterController.radius + 0.5f, LayerMask.GetMask("Ground"), QueryTriggerInteraction.Ignore))
+        {
+            print("wall ride start");
+            owner.wallRideComponent.PlayWallRide(hit);
+            smoothDesiredMoveDirection = Vector3.zero;
+            owner.animator.SetFloat(AnimationHash.HASH_LOCOMOTION_SPEED, owner.locomotionData.currentMovementSettings.sprintSpeed);
+            return;
+        }
 
         smoothDesiredMoveDirection = Vector3.Lerp(smoothDesiredMoveDirection, desiredMoveDirection, Time.deltaTime * owner.locomotionData.GetMaxAcceleration());
 

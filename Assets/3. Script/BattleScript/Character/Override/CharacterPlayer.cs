@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CharacterPlayer : Character
+public class CharacterPlayer : CharacterActor
 {
     private void OnAnimatorMove()
     {
@@ -32,7 +32,7 @@ public class CharacterPlayer : Character
         SetCharacterTag("Player");
 
         statsComponent.OnDeadAction += Dead;
-        hitTraceComponent.OnHit += (Character hitCharacter) =>
+        hitTraceComponent.OnHit += (Character hitCharacter, Vector3 hitPoint, Vector3 hitDirection) =>
         {
             if (hitTraceComponent.GetHitInfo().hitCharacters.Count > 0)
             {

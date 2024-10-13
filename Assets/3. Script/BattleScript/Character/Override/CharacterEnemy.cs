@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class CharacterEnemy : Character
+public class CharacterEnemy : CharacterActor
 {
     [Header("[Character AI]")]
     public NavMeshAgent navMeshAgent;
@@ -51,6 +51,54 @@ public class CharacterEnemy : Character
         if (attackComponent != null && attackComponent.skillState == ESkillState.Playing)
         {
             transform.position = animator.targetPosition;
+        }
+    }
+
+    public override void UpdateAnimationState()
+    {
+        base.UpdateAnimationState();
+
+        locomotionData.angle = Vector3.SignedAngle(transform.forward, navMeshAgent.desiredVelocity, Vector3.up);
+        
+        if (hitReactionComponent.combatData.combatType != ECombatType.None)
+        {
+            locomotionData.currentMovementSettings.currentSpeed = 0.0f;
+        }
+        else
+        {
+            switch (locomotionData.locomotionState)
+            {
+                case ELocomotionState.Stop:
+                    locomotionData.currentMovementSettings.currentSpeed = 0f;
+                    break;
+
+                case ELocomotionState.Walk:
+                    locomotionData.currentMovementSettings.currentSpeed = locomotionData.currentMovementSettings.walkSpeed;
+                    break;
+
+                case ELocomotionState.Sprint:
+                    locomotionData.currentMovementSettings.currentSpeed = locomotionData.currentMovementSettings.sprintSpeed;
+                    break;
+            }
+
+            animator.SetFloat(AnimationHash.HASH_LOCOMOTION_SPEED, locomotionData.currentMovementSettings.currentSpeed);
+
+            navMeshAgent.speed = locomotionData.currentMovementSettings.currentSpeed;
+
+            switch (locomotionData.movementTypeState)
+            {
+                case EMovementTypeState.Grounded:
+                    smoothDesiredMoveDirection = Vector3.Lerp(smoothDesiredMoveDirection, navMeshAgent.desiredVelocity, Time.deltaTime * locomotionData.GetMaxAcceleration());
+                    if (navMeshAgent.autoBraking)
+                    {
+                        characterController.Move(navMeshAgent.desiredVelocity * Time.deltaTime);
+                    }
+                    else
+                    {
+                        characterController.Move(smoothDesiredMoveDirection * Time.deltaTime);
+                    }
+                    break;
+            }
         }
     }
 
@@ -115,59 +163,6 @@ public class CharacterEnemy : Character
         //{
         //    secondWeapon.Equip();
         //}
-    }
-
-    public override void UpdateAnimationState()
-    {
-        base.UpdateAnimationState();
-
-        locomotionData.angle = Vector3.SignedAngle(transform.forward, navMeshAgent.desiredVelocity, Vector3.up);
-        animator.SetFloat(AnimationHash.HASH_LOCOMOTION_SPEED, navMeshAgent.desiredVelocity.magnitude);
-
-        if (animator.GetFloat(AnimationHash.HASH_LOCOMOTION_SPEED) > 0.0f || (navMeshAgent.enabled && (navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)) ||
-                hitReactionComponent.combatData.combatType != ECombatType.None)
-        {
-            locomotionData.currentMovementSettings.currentSpeed = 0.0f;
-        }
-        else
-        {
-            switch (locomotionData.locomotionState)
-            {
-                case ELocomotionState.Stop:
-                    locomotionData.currentMovementSettings.currentSpeed =
-                        Mathf.Lerp(locomotionData.currentMovementSettings.currentSpeed, 0.0f, Time.smoothDeltaTime * locomotionData.GetMaxDamp());
-                    break;
-
-                case ELocomotionState.Walk:
-                    locomotionData.currentMovementSettings.currentSpeed =
-                        Mathf.Lerp(locomotionData.currentMovementSettings.currentSpeed,
-                        locomotionData.currentMovementSettings.walkSpeed, Time.smoothDeltaTime);
-                    break;
-
-                case ELocomotionState.Sprint:
-                    locomotionData.currentMovementSettings.currentSpeed =
-                        Mathf.Lerp(locomotionData.currentMovementSettings.currentSpeed,
-                        locomotionData.currentMovementSettings.sprintSpeed, Time.smoothDeltaTime);
-                    break;
-            }
-        }
-
-        navMeshAgent.speed = locomotionData.currentMovementSettings.currentSpeed;
-
-        switch (locomotionData.movementTypeState)
-        {
-            case EMovementTypeState.Grounded:
-                smoothDesiredMoveDirection = Vector3.Lerp(smoothDesiredMoveDirection, navMeshAgent.desiredVelocity, Time.deltaTime * locomotionData.GetMaxAcceleration());
-                if (navMeshAgent.autoBraking)
-                {
-                    characterController.Move(navMeshAgent.desiredVelocity * locomotionData.ratio * Time.deltaTime);
-                }
-                else
-                {
-                    characterController.Move(smoothDesiredMoveDirection * locomotionData.ratio * Time.deltaTime);
-                }
-                break;
-        }
     }
 
     public override void Dead(DamageInfo damageInfo)

@@ -13,7 +13,7 @@ public enum ESkillState
 
 public class AttackComponent : MonoBehaviour
 {
-    public Character owner;
+    public CharacterActor owner;
 
     [Header("[Input]")]
     EKeyName currentKey = EKeyName.None;
@@ -46,14 +46,16 @@ public class AttackComponent : MonoBehaviour
 
     void Init()
     {
-        owner = GetComponent<Character>();
+        owner = GetComponent<CharacterActor>();
         currentInputs = new List<EKeyName>();
         savedSkills = new List<AnimationClip>();
     }
 
     public void SetInput(EKeyName key)
     {
-        if (key != EKeyName.Attack && key != EKeyName.Skill) return;
+        if (key != EKeyName.Attack && key != EKeyName.Skill1 &&
+            key != EKeyName.Skill2 && key != EKeyName.Skill3 &&
+            key != EKeyName.Skill4) return;
 
         if (inputTimer <= Time.time)
         {

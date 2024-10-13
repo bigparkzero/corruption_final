@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    Character owner;
+    CharacterActor owner;
 
     CursorLockMode cursorLockMode = CursorLockMode.Locked;
     bool cursorVisible = false;
@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
 
     void Init()
     {
-        owner = GetComponent<Character>();
+        owner = GetComponent<CharacterActor>();
 
         Cursor.lockState = cursorLockMode;
         Cursor.visible = cursorVisible;
@@ -44,7 +44,10 @@ public class PlayerController : MonoBehaviour
     void Jump()
     {
         if (owner.hitReactionComponent.combatData.combatType == ECombatType.HitReaction ||
-            owner.hitReactionComponent.combatData.combatType == ECombatType.Dodge) return;
+            owner.hitReactionComponent.combatData.combatType == ECombatType.Dodge ||
+            owner.hitReactionComponent.combatData.combatType == ECombatType.Attack) return;
+
+        if (owner.wallRideComponent?.wallRideState == EWallRideState.Active) return;
 
         if (PlayerInputManager.Instance.IsKeyDown(EKeyName.Jump))
         {
@@ -60,6 +63,10 @@ public class PlayerController : MonoBehaviour
     {
         if (owner.hitReactionComponent.combatData.combatType == ECombatType.HitReaction) return;
 
+        if (owner.wallRideComponent?.wallRideState == EWallRideState.Active) return;
+
+        if (owner.hitReactionComponent.combatData.combatType == ECombatType.Dodge) return;
+
         if (PlayerInputManager.Instance.IsKeyDown(EKeyName.Attack))
         {
             owner.attackComponent.SetInput(EKeyName.Attack);
@@ -70,9 +77,25 @@ public class PlayerController : MonoBehaviour
     {
         if (owner.hitReactionComponent.combatData.combatType == ECombatType.HitReaction) return;
 
-        if (PlayerInputManager.Instance.IsKeyDown(EKeyName.Skill))
+        if (owner.wallRideComponent?.wallRideState == EWallRideState.Active) return;
+
+        if (owner.hitReactionComponent.combatData.combatType == ECombatType.Dodge) return;
+
+        if (PlayerInputManager.Instance.IsKeyDown(EKeyName.Skill1))
         {
-            owner.attackComponent.SetInput(EKeyName.Skill);
+            owner.attackComponent.SetInput(EKeyName.Skill1);
+        }
+        else if (PlayerInputManager.Instance.IsKeyDown(EKeyName.Skill2))
+        {
+            owner.attackComponent.SetInput(EKeyName.Skill2);
+        }
+        else if (PlayerInputManager.Instance.IsKeyDown(EKeyName.Skill3))
+        {
+            owner.attackComponent.SetInput(EKeyName.Skill3);
+        }
+        else if (PlayerInputManager.Instance.IsKeyDown(EKeyName.Skill4))
+        {
+            owner.attackComponent.SetInput(EKeyName.Skill4);
         }
     }
 
@@ -81,6 +104,10 @@ public class PlayerController : MonoBehaviour
         if (owner.hitReactionComponent.combatData.combatType == ECombatType.HitReaction ||
             !owner.locomotionData.isGrounded ||
             owner.attackComponent.skillState == ESkillState.Playing) return;
+
+        if (owner.wallRideComponent?.wallRideState == EWallRideState.Active) return;
+
+        if (owner.hitReactionComponent.combatData.combatType == ECombatType.Dodge) return;
 
         if (PlayerInputManager.Instance.IsKeyDown(EKeyName.Roll))
         {
@@ -94,6 +121,10 @@ public class PlayerController : MonoBehaviour
         if (owner.hitReactionComponent.combatData.combatType == ECombatType.HitReaction ||
             owner.locomotionData.isGrounded ||
             owner.attackComponent.skillState == ESkillState.Playing) return;
+
+        if (owner.wallRideComponent?.wallRideState == EWallRideState.Active) return;
+
+        if (owner.hitReactionComponent.combatData.combatType == ECombatType.Dodge) return;
 
         if (PlayerInputManager.Instance.IsKeyDown(EKeyName.Air_Dash))
         {

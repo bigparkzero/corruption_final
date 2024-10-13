@@ -1,8 +1,8 @@
 public class RunState : IState
 {
-    Character owner;
+    CharacterActor owner;
 
-    public RunState(Character owner) { this.owner = owner; }
+    public RunState(CharacterActor owner) { this.owner = owner; }
 
     public void OnEnter()
     {

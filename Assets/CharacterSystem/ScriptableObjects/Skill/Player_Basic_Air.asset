@@ -1,0 +1,217 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be4bd73767e84c64292f8fe6c70a2905, type: 3}
+  m_Name: Player_Basic_Air
+  m_EditorClassIdentifier: 
+  skillData:
+    skillName: 
+    inputs: 0a0000000a0000000a0000000a000000
+    clips:
+    - {fileID: 7400000, guid: f8adca713ddde9b4eada16e1b294c5e7, type: 2}
+    - {fileID: 7400000, guid: a4a4147ba6b3a6e4980d8983a4eca5a5, type: 2}
+    - {fileID: 7400000, guid: d5c5c020d98d48c4b85837599f2fbff9, type: 2}
+    - {fileID: 7400000, guid: 98d6e3e0db5d2054ba9c4606322b28eb, type: 2}
+    movementTypeState: 2
+    isSprint: 0
+    hitReactionDatas:
+    - hitReactionData:
+      - traceInfo:
+          armedType: 1
+          traceType: 1
+          bones: 18
+          traceRadius: 0.5
+          traceAngle: 0
+          traceHeight: 0
+        attackDirection: 3
+        hitAnimation:
+          hitClip: {fileID: 7400000, guid: b00170b24e8826642bbfbe863ff88a77, type: 2}
+          transitionDuration: 0
+        HitFeedback:
+          isHitStop: 0
+          stopScale: 0
+          stopTime: 0
+          isShake: 0
+          shakeScale: 0
+        HitKnockback:
+          isKnockback: 1
+          knockbackForce: 0
+          knockbackTime: 0.1
+          intensity: 0
+          wallHitable: 0
+        HitAirborne:
+          isAirborne: 0
+          height: 0
+          force: 0
+          airborneTime: 0
+          intensity: 0
+        HitParticleFX:
+          hitParticle: {fileID: 0}
+          blockHitParticle: {fileID: 0}
+          parryParticle: {fileID: 0}
+          scale: {x: 0, y: 0, z: 0}
+          eulerOffset: {x: 0, y: 0, z: 0}
+          isParent: 0
+        HitSoundFX:
+          hitClips: []
+          volume: 0
+        attackParticleFX:
+          attackParticle: {fileID: 0}
+          useParent: 0
+          offset: {x: 0, y: 0, z: 0}
+          eulerOffset: {x: 0, y: 0, z: 0}
+          scale: {x: 0, y: 0, z: 0}
+          destroyTime: 0
+        Damage: 10
+    - hitReactionData:
+      - traceInfo:
+          armedType: 1
+          traceType: 1
+          bones: 18
+          traceRadius: 0.5
+          traceAngle: 0
+          traceHeight: 0
+        attackDirection: 2
+        hitAnimation:
+          hitClip: {fileID: 7400000, guid: b00170b24e8826642bbfbe863ff88a77, type: 2}
+          transitionDuration: 0
+        HitFeedback:
+          isHitStop: 0
+          stopScale: 0
+          stopTime: 0
+          isShake: 0
+          shakeScale: 0
+        HitKnockback:
+          isKnockback: 1
+          knockbackForce: 0
+          knockbackTime: 0.1
+          intensity: 0
+          wallHitable: 0
+        HitAirborne:
+          isAirborne: 0
+          height: 0
+          force: 0
+          airborneTime: 0
+          intensity: 0
+        HitParticleFX:
+          hitParticle: {fileID: 0}
+          blockHitParticle: {fileID: 0}
+          parryParticle: {fileID: 0}
+          scale: {x: 0, y: 0, z: 0}
+          eulerOffset: {x: 0, y: 0, z: 0}
+          isParent: 0
+        HitSoundFX:
+          hitClips: []
+          volume: 0
+        attackParticleFX:
+          attackParticle: {fileID: 0}
+          useParent: 0
+          offset: {x: 0, y: 0, z: 0}
+          eulerOffset: {x: 0, y: 0, z: 0}
+          scale: {x: 0, y: 0, z: 0}
+          destroyTime: 0
+        Damage: 10
+    - hitReactionData:
+      - traceInfo:
+          armedType: 1
+          traceType: 1
+          bones: 18
+          traceRadius: 0.5
+          traceAngle: 0
+          traceHeight: 0
+        attackDirection: 4
+        hitAnimation:
+          hitClip: {fileID: 7400000, guid: b00170b24e8826642bbfbe863ff88a77, type: 2}
+          transitionDuration: 0
+        HitFeedback:
+          isHitStop: 0
+          stopScale: 0
+          stopTime: 0
+          isShake: 0
+          shakeScale: 0
+        HitKnockback:
+          isKnockback: 1
+          knockbackForce: 0
+          knockbackTime: 0.1
+          intensity: 0
+          wallHitable: 0
+        HitAirborne:
+          isAirborne: 0
+          height: 0
+          force: 0
+          airborneTime: 0
+          intensity: 0
+        HitParticleFX:
+          hitParticle: {fileID: 0}
+          blockHitParticle: {fileID: 0}
+          parryParticle: {fileID: 0}
+          scale: {x: 0, y: 0, z: 0}
+          eulerOffset: {x: 0, y: 0, z: 0}
+          isParent: 0
+        HitSoundFX:
+          hitClips: []
+          volume: 0
+        attackParticleFX:
+          attackParticle: {fileID: 0}
+          useParent: 0
+          offset: {x: 0, y: 0, z: 0}
+          eulerOffset: {x: 0, y: 0, z: 0}
+          scale: {x: 0, y: 0, z: 0}
+          destroyTime: 0
+        Damage: 15
+    - hitReactionData:
+      - traceInfo:
+          armedType: 1
+          traceType: 1
+          bones: 18
+          traceRadius: 2.5
+          traceAngle: 0
+          traceHeight: 0
+        attackDirection: 3
+        hitAnimation:
+          hitClip: {fileID: 7400000, guid: 4ecf85d839f2c054b81a6b7e526bc45a, type: 2}
+          transitionDuration: 0
+        HitFeedback:
+          isHitStop: 0
+          stopScale: 0
+          stopTime: 0
+          isShake: 0
+          shakeScale: 0
+        HitKnockback:
+          isKnockback: 1
+          knockbackForce: 0.5
+          knockbackTime: 0.2
+          intensity: 1
+          wallHitable: 0
+        HitAirborne:
+          isAirborne: 0
+          height: 0
+          force: 0
+          airborneTime: 0
+          intensity: 0
+        HitParticleFX:
+          hitParticle: {fileID: 0}
+          blockHitParticle: {fileID: 0}
+          parryParticle: {fileID: 0}
+          scale: {x: 0, y: 0, z: 0}
+          eulerOffset: {x: 0, y: 0, z: 0}
+          isParent: 0
+        HitSoundFX:
+          hitClips: []
+          volume: 0
+        attackParticleFX:
+          attackParticle: {fileID: 0}
+          useParent: 0
+          offset: {x: 0, y: 0, z: 0}
+          eulerOffset: {x: 0, y: 0, z: 0}
+          scale: {x: 0, y: 0, z: 0}
+          destroyTime: 0
+        Damage: 30

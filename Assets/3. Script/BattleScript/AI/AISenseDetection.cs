@@ -27,13 +27,13 @@ public class AISenseDetection : MonoBehaviour
     [Header("[AI Sense - Dectection]")]
     [SerializeField] private LayerMask targetLayer;
     [SerializeField] private LayerMask obstacleLayer;
-    [SerializeField] private Character target;
+    [SerializeField] private CharacterActor target;
     [SerializeField] private DetectionInfo detectionInfo;
     [SerializeField] private float intervalUpdate = 0.2f;
     [SerializeField] private bool targetInSight = false;
 
     [Header("[AI Sense - Event]")]
-    public UnityAction<Character> OnSucceed;
+    public UnityAction<CharacterActor> OnSucceed;
     public UnityAction OnFailed;
 
     [Header("[AI Sense - Timer Handler]")]
@@ -119,7 +119,7 @@ public class AISenseDetection : MonoBehaviour
         }
     }
 
-    private void Succeed(Character target)
+    private void Succeed(CharacterActor target)
     {
         if (target == null) return;
 
@@ -159,7 +159,7 @@ public class AISenseDetection : MonoBehaviour
         return detectionInfo;
     }
 
-    public Character GetTarget()
+    public CharacterActor GetTarget()
     {
         return target;
     }

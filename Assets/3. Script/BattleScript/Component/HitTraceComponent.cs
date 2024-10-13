@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -52,7 +51,7 @@ public struct HitInfo
 
 public class HitTraceComponent : MonoBehaviour
 {
-    Character owner;
+    CharacterActor owner;
 
     [Header("[Hit Trace Component]")]
     [SerializeField] LayerMask hitLayer;
@@ -68,7 +67,10 @@ public class HitTraceComponent : MonoBehaviour
 
     [Header("[Hit Trace Event]")]
     public UnityEvent OnReceiveDamage;
-    public UnityAction<Character> OnHit;
+    public UnityAction<Character, Vector3, Vector3> OnHit;
+
+    public GameObject prefab_hitFlare;
+    public bool useHitFlare = true;
 
     private void Start()
     {
@@ -82,7 +84,7 @@ public class HitTraceComponent : MonoBehaviour
 
     void Init()
     {
-        owner = GetComponent<Character>();
+        owner = GetComponent<CharacterActor>();
 
         hitInfo.hitColliders = new Collider[maxCount];
         hitInfo.hitCharacters = new List<Character>(maxCount);
@@ -119,36 +121,89 @@ public class HitTraceComponent : MonoBehaviour
     {
         if (isTrace)
         {
-            int count = 0;
-            switch (traceInfo.traceType)
+            SkillData skill = owner.attackComponent.CurrentSkillData;
+            if (skill.hitReactionDatas == null)
             {
-                case ETraceType.Sphere:
-                    count = Physics.OverlapSphereNonAlloc(owner.transform.position, traceInfo.traceRadius, hitInfo.hitColliders, hitLayer.value, QueryTriggerInteraction.Ignore);
-                    break;
-
-                case ETraceType.Capsule:
-                    count = Physics.OverlapCapsuleNonAlloc(startSlot.position, endSlot.position, traceInfo.traceRadius, hitInfo.hitColliders, hitLayer.value, QueryTriggerInteraction.Ignore);
-                    break;
-
-                case ETraceType.Box:
-                    Vector3 centerPosition = Util.GetCenterPosition(startSlot.position, endSlot.position);
-                    Vector3 boxSize = new Vector3(traceInfo.traceRadius, traceInfo.traceRadius, traceInfo.traceRadius);
-                    count = Physics.OverlapBoxNonAlloc(centerPosition, boxSize * 0.5f, hitInfo.hitColliders, transform.rotation, hitLayer.value, QueryTriggerInteraction.Ignore);
-                    break;
+                owner.attackComponent.ResetSkill();
+                return; 
             }
+            HitReactionDatas hitReactionDatas = skill.hitReactionDatas[owner.attackComponent.CurrentSkillIndex];
+            HitReactionData hitReactionData = hitReactionDatas.hitReactionData[0];
+            EArmedType armedType = hitReactionData.traceInfo.armedType;
 
-            hitInfo.hitColliders.OrderBy(obj => Util.GetDistance(owner.transform.position, obj.transform.position));
+            int count = 0;
+            Vector3 detectPosition;
+            switch (armedType)
+            {
+                case EArmedType.None:
+                    detectPosition = owner.characterController.center;
+                    break;
+                case EArmedType.Main:
+                    detectPosition = owner.mainWeapon.transform.position;
+                    break;
+                case EArmedType.Second:
+                    detectPosition = owner.secondWeapon.transform.position;
+                    break;
+                default:
+                    throw new Exception("invalid aremd type!");
+            }
+            count = Physics.OverlapSphereNonAlloc(detectPosition, traceInfo.traceRadius, hitInfo.hitColliders, hitLayer.value, QueryTriggerInteraction.Ignore);
+
+            //switch (traceInfo.traceType)
+            //{
+            //    case ETraceType.Sphere:
+            //        Vector3 detectPosition;
+            //        switch (armedType)
+            //        {
+            //            case EArmedType.None:
+            //                detectPosition = owner.characterController.center;
+            //                break;
+            //            case EArmedType.Main:
+            //                detectPosition = owner.mainWeapon.transform.position;
+            //                break;
+            //            case EArmedType.Second:
+            //                detectPosition = owner.secondWeapon.transform.position;
+            //                break;
+            //        }
+            //        count = Physics.OverlapSphereNonAlloc(detectPosition, traceInfo.traceRadius, hitInfo.hitColliders, hitLayer.value, QueryTriggerInteraction.Ignore);
+            //        break;
+            //
+            //    case ETraceType.Capsule:
+            //        count = Physics.OverlapCapsuleNonAlloc(startSlot.position, endSlot.position, traceInfo.traceRadius, hitInfo.hitColliders, hitLayer.value, QueryTriggerInteraction.Ignore);
+            //        break;
+            //
+            //    case ETraceType.Box:
+            //        Vector3 centerPosition = Util.GetCenterPosition(startSlot.position, endSlot.position);
+            //        Vector3 boxSize = new Vector3(traceInfo.traceRadius, traceInfo.traceRadius, traceInfo.traceRadius);
+            //        count = Physics.OverlapBoxNonAlloc(centerPosition, boxSize * 0.5f, hitInfo.hitColliders, transform.rotation, hitLayer.value, QueryTriggerInteraction.Ignore);
+            //        break;
+            //}
+
             for (int i = 0; i < count; ++i)
             {
                 Collider coll = hitInfo.hitColliders[i];
-                var hitActor = coll.gameObject.GetComponentInParent<Character>();
+                print(coll.name);
+                Vector3 closest = coll.ClosestPoint(detectPosition);
+                Vector3 hitDirection = (closest - detectPosition).normalized;
+                if (hitDirection == Vector3.zero) hitDirection = (coll.transform.position - transform.position).normalized;
 
+                var hitActor = coll.gameObject.GetComponentInParent<Character>();
                 if (hitActor != null && !CheckHitCharacter(hitActor) && !hitActor.HasTag(ignoreTag))
                 {
-                    OnHit?.Invoke(hitActor);
+                    PlayHitFlare(closest, hitDirection);
+                    OnHit?.Invoke(hitActor, closest, hitDirection);
                 }
             }
         }
+    }
+
+    public void PlayHitFlare(Vector3 hitPoint, Vector3 hitDirection)
+    {
+        if (!useHitFlare || prefab_hitFlare == null) return;
+
+        Quaternion rotation = Quaternion.LookRotation(-hitDirection);
+        GameObject flare = Instantiate(prefab_hitFlare, hitPoint, rotation);
+        Destroy(flare, 1f);
     }
 
     public void OnTraceBegin()
@@ -158,6 +213,10 @@ public class HitTraceComponent : MonoBehaviour
             case EArmedType.None:
                 startSlot = owner.animator.GetBoneTransform(traceInfo.bones);
                 endSlot = owner.animator.GetBoneTransform(traceInfo.bones);
+                owner.mainWeapon.weaponInfo.weaponVFX.SetTrail(true);
+                owner.mainWeapon.weaponInfo.weaponSFX.PlayAttackSFX(owner, 1.0f);
+                owner.secondWeapon.weaponInfo.weaponVFX.SetTrail(true);
+                owner.secondWeapon.weaponInfo.weaponSFX.PlayAttackSFX(owner, 1.0f);
                 break;
         
             case EArmedType.Main:
@@ -208,11 +267,11 @@ public class HitTraceComponent : MonoBehaviour
 
     #region Hit Reaction Component
 
-    private void PlayHitStop()
+    public void PlayHitStop()
     {
-        float stopTime = owner.hitReactionComponent.GetHitReaction().HitFeedback.stopTime;
-        float stopScale = owner.hitReactionComponent.GetHitReaction().HitFeedback.stopScale;
-        owner.hitReactionComponent.SetHitStop(stopTime, stopScale);
+        //float stopTime = owner.hitReactionComponent.GetHitReaction().HitFeedback.stopTime;
+        //float stopScale = owner.hitReactionComponent.GetHitReaction().HitFeedback.stopScale;
+        owner.hitReactionComponent.SetHitStop(0.05f, 0.08f);
     }
 
     private void PlayCameraShake()
@@ -233,14 +292,14 @@ public class HitTraceComponent : MonoBehaviour
         }
     }
 
-    private void PlayKnockback(Character hitActor)
+    private void PlayKnockback(CharacterActor hitActor)
     {
-        hitActor.hitReactionComponent.SetKnockback(owner.hitReactionComponent.GetHitReaction().HitKnockback, owner);
+        hitActor.hitReactionComponent.SetKnockback(owner.attackComponent.CurrentSkillData.hitReactionDatas[owner.attackComponent.CurrentSkillIndex].hitReactionData[0].HitKnockback, owner);
     }
 
-    private void PlayAirborne(Character hitActor)
+    private void PlayAirborne(CharacterActor hitActor)
     {
-        hitActor.hitReactionComponent.SetAirborne(owner.hitReactionComponent.GetHitReaction().HitAirborne, hitActor);
+        hitActor.hitReactionComponent.SetAirborne(owner.attackComponent.CurrentSkillData.hitReactionDatas[owner.attackComponent.CurrentSkillIndex].hitReactionData[0].HitAirborne, hitActor);
     }
 
     private void PlayHitVFX()
@@ -259,14 +318,14 @@ public class HitTraceComponent : MonoBehaviour
         }
     }
 
-    private void PlayHitSFX(Character hitActor)
+    private void PlayHitSFX(CharacterActor hitActor)
     {
         //owner.hitReactionComponent.GetHitReaction().HitSoundFX.Play(hitActor.characterAudio, owner.hitReactionComponent.GetHitReaction().HitSoundFX.hitClips);
     }
 
     #endregion
 
-    public void HitReaction(Character hitActor)
+    public void HitReaction(CharacterActor hitActor)
     {
         switch (traceInfo.armedType)
         {
@@ -293,36 +352,43 @@ public class HitTraceComponent : MonoBehaviour
         PlayHitSFX(hitActor);
     }
 
-    public void HitEvent(Character hitActor)
+    public void HitEvent(Character hit, Vector3 hitPoint, Vector3 hitDirection)
     {
+        CharacterActor hitActor = hit as CharacterActor;
+        DamageInfo damageInfo = new DamageInfo(owner, owner.hitReactionComponent.GetHitReaction().Damage, OnReceiveDamage, hitPoint);
+
+        if (hitActor == null)
+        {
+            var damagable = hit as IDamagable;
+            if (damagable != null)
+            {
+                hit.TakeDamage(damageInfo, hitDirection);
+            }
+            return;
+        }
+
         if (hitActor.statsComponent.isInvincible) return;
 
-        var damageable = hitActor.GetComponent<IDamagable>();
+        var damageable = hitActor as IDamagable;
         if (damageable != null)
         {
-            DamageInfo damageInfo = new DamageInfo(owner, owner.hitReactionComponent.GetHitReaction().Damage, OnReceiveDamage);
-            Vector3 direction = Util.GetDirection(hitActor.transform.position, owner.transform.position);
-            float height = Util.GetHeight(hitActor.transform.position, owner.transform.position);
-            if ((Vector3.Angle(owner.transform.forward, -direction) < traceInfo.traceAngle * 0.5f || traceInfo.traceAngle <= 0.0f) && traceInfo.traceHeight >= height)
+            hitInfo.hitPoint = hitActor.animator.GetBoneTransform(HumanBodyBones.Chest).position;
+            hitInfo.hitCharacter = hitActor;
+            hitActor.DoLookOpposite(owner.transform.position, 0.5f);
+
+            switch (hitActor.hitReactionComponent.combatData.combatType)
             {
-                hitInfo.hitPoint = hitActor.animator.GetBoneTransform(HumanBodyBones.Chest).position;
-                hitInfo.hitCharacter = hitActor;
-                hitActor.DoLookOpposite(owner.transform.position, 0.5f);
+                case ECombatType.None:
+                case ECombatType.Attack:
+                case ECombatType.HitReaction:
+                    HitReaction(hitActor);
+                    break;
 
-                switch (hitActor.hitReactionComponent.combatData.combatType)
-                {
-                    case ECombatType.None:
-                    case ECombatType.Attack:
-                    case ECombatType.HitReaction:
-                        HitReaction(hitActor);
-                        break;
-
-                    case ECombatType.Dodge:
-                        owner.hitReactionComponent.SetHitStop(0.35f, 0.0f);
-                        break;
-                }
-                damageable.TakeDamage(damageInfo);
+                case ECombatType.Dodge:
+                    owner.hitReactionComponent.SetHitStop(0.35f, 0.0f);
+                    break;
             }
+            damageable.TakeDamage(damageInfo, hitDirection);
         }
     }
 

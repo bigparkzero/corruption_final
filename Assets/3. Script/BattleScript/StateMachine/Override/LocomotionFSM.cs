@@ -4,7 +4,7 @@ public class LocomotionFSM : StateMachine
     public WalkState walkState;
     public RunState runState;
 
-    public LocomotionFSM(Character owner)
+    public LocomotionFSM(CharacterActor owner)
     {
         idleState = new IdleState(owner);
         walkState = new WalkState(owner);

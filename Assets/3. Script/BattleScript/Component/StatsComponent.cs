@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Internal;
@@ -31,7 +32,7 @@ public struct StatData
 
 public class StatsComponent : MonoBehaviour
 {
-    private Character owner;
+    private CharacterBase owner;
 
     [SerializeField] StatData statData;
     public StatData GetStatData { get => statData; }
@@ -47,6 +48,7 @@ public class StatsComponent : MonoBehaviour
     public UnityAction<EStatType> OnResetAction;
 
     public Coroutine C_HpRegen;
+    public UnityAction OnDead;
 
     private void Start()
     {
@@ -55,7 +57,7 @@ public class StatsComponent : MonoBehaviour
 
     void Init()
     {
-        owner = GetComponent<Character>();
+        owner = GetComponent<CharacterBase>();
 
         if (useInit)
         {
@@ -91,7 +93,10 @@ public class StatsComponent : MonoBehaviour
 
         if (statData.hp <= 0)
         {
+            owner.StopEveryCoroutines();
             isAlive = false;
+
+            OnDead?.Invoke();
         }
     }
 }

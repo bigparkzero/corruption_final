@@ -5,11 +5,11 @@ using UnityEngine;
 // Animation Event Callback Script
 public class AnimationEvent : MonoBehaviour
 {
-    Character owner;
+    CharacterActor owner;
 
     private void Start()
     {
-        owner = GetComponent<Character>();
+        owner = GetComponent<CharacterActor>();
     }
 
     public void Anim_OnSkillBegin()
@@ -98,12 +98,12 @@ public class AnimationEvent : MonoBehaviour
     public void Anim_GravityEnable(float jumpForce = 0.0f)
     {
         owner.locomotionData.useGravity = true;
-        owner.locomotionData.jumpForce = jumpForce;
+        //owner.locomotionData.jumpForce = jumpForce;
     }
 
     public void Anim_GravityDisable(float jumpForce = 0.0f)
     {
         owner.locomotionData.useGravity = false;
-        owner.locomotionData.jumpForce = jumpForce;
+        //owner.locomotionData.jumpForce = jumpForce;
     }
 }

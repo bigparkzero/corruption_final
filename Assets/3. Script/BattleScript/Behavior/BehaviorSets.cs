@@ -24,8 +24,8 @@ public struct BehaviorData
 
 public class BehaviorSets : MonoBehaviour
 {
-    private Character owner;
-    public Character Owner { get => owner; }
+    private CharacterActor owner;
+    public CharacterActor Owner { get => owner; }
 
     [Header("[Behavior Sets]")]
     public EBehaviorTask behaviorTask;
@@ -45,7 +45,7 @@ public class BehaviorSets : MonoBehaviour
 
     private void Init()
     {
-        owner = GetComponent<Character>();
+        owner = GetComponent<CharacterActor>();
 
         StartBehavior();
     }
@@ -267,7 +267,7 @@ public class BehaviorSets : MonoBehaviour
             Debug.LogError("Behavior Action is null");
             return;
         }
-        Debug.Log($"Behavior Action Name : {action.behaviorAction.name}");
+        //Debug.Log($"Behavior Action Name : {action.behaviorAction.name}");
 
         if (currentAction.behaviorAction != null)
         {

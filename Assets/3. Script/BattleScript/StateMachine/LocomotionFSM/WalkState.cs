@@ -1,8 +1,8 @@
 public class WalkState : IState
 {
-    Character owner;
+    CharacterActor owner;
 
-    public WalkState(Character owner) { this.owner = owner; }
+    public WalkState(CharacterActor owner) { this.owner = owner; }
 
     public void OnEnter()
     {

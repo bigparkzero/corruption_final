@@ -23,11 +23,9 @@ public enum EBodySocket
     Core,
 }
 
-[RequireComponent(typeof(CharacterController))]
 public abstract class CharacterBase : MonoBehaviour
 {
     [Header("[Component]")]
-    [HideInInspector] public CharacterController characterController;
     [HideInInspector] public IAnimationComponent animationComponent;
 
     [Space]
@@ -36,7 +34,6 @@ public abstract class CharacterBase : MonoBehaviour
 
     protected virtual void Awake()
     {
-        characterController = GetComponent<CharacterController>();
         IAnimationComponent animComponent = GetComponent<IAnimationComponent>();
     }
 
@@ -49,4 +46,6 @@ public abstract class CharacterBase : MonoBehaviour
     protected abstract void CheckGround();
 
     protected abstract void AirControl();
+
+    public abstract void StopEveryCoroutines();
 }

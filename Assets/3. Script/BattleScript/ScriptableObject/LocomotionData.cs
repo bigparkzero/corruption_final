@@ -145,7 +145,7 @@ public class LocomotionData : ScriptableObject
         fallingTime = 0.0f;
     }
 
-    public Vector3 GetVelocity(Character character)
+    public Vector3 GetVelocity(CharacterActor character)
     {
         return character.characterController.velocity;
     }

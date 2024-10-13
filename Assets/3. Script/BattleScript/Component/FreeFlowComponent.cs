@@ -6,10 +6,10 @@ using UnityEngine.Events;
 public class FreeFlowComponent : MonoBehaviour
 {
     [Header("[Component]")]
-    private Character owner;
+    private CharacterActor owner;
 
     [Header("[Freeflow Component]")]
-    [SerializeField] private Character target;
+    [SerializeField] private CharacterActor target;
     [SerializeField] private LayerMask targetLayer;
     [SerializeField] private float maxDistance = 5.0f;
     [SerializeField] private float minDistance = 0.0f;
@@ -44,7 +44,7 @@ public class FreeFlowComponent : MonoBehaviour
 
     private void Initialize()
     {
-        owner = GetComponent<Character>();
+        owner = GetComponent<CharacterActor>();
     }
 
     private IEnumerator Freeflow()
@@ -95,15 +95,15 @@ public class FreeFlowComponent : MonoBehaviour
     {
         if (owner.locomotionData.hasInput)
         {
-            target = Util.GetDirectionToComponent<Character>(owner, maxDistance, angle, targetLayer.value);
+            target = Util.GetDirectionToComponent<CharacterActor>(owner, maxDistance, angle, targetLayer.value);
 
             // 키 입력 방향에 타겟이 없을 경우 가까운 적이 있는지 한번 더 체크
             if (target == null)
-                target = Util.GetNearestToComponent<Character>(owner, maxDistance * 0.5f, targetLayer.value);
+                target = Util.GetNearestToComponent<CharacterActor>(owner, maxDistance * 0.5f, targetLayer.value);
         }
         else
         {
-            target = Util.GetNearestToComponent<Character>(owner, maxDistance * 0.5f, targetLayer.value);
+            target = Util.GetNearestToComponent<CharacterActor>(owner, maxDistance * 0.5f, targetLayer.value);
         }
 
         currentLerpTime = 0.0f;
@@ -134,7 +134,7 @@ public class FreeFlowComponent : MonoBehaviour
         endEvent?.Invoke();
     }
 
-    public Character GetTarget()
+    public CharacterActor GetTarget()
     {
         return target;
     }

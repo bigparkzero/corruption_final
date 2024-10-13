@@ -3,7 +3,7 @@ using UnityEngine;
 
 public static class Util
 {
-    public static T GetNearestToComponent<T>(Character owner, float radius, LayerMask layerMask) where T : Component
+    public static T GetNearestToComponent<T>(CharacterActor owner, float radius, LayerMask layerMask) where T : Component
     {
         var colls = Physics.OverlapSphere(owner.transform.position, radius, layerMask.value);
         float nearestToDistance = Mathf.Infinity;
@@ -25,7 +25,7 @@ public static class Util
         return target;
     }
 
-    public static T GetDirectionToComponent<T>(Character owner, float radius, float angle, LayerMask layerMask) where T : Component
+    public static T GetDirectionToComponent<T>(CharacterActor owner, float radius, float angle, LayerMask layerMask) where T : Component
     {
         var colls = Physics.OverlapSphere(owner.transform.position, radius, layerMask.value);
         float nearestToDistance = Mathf.Infinity;
@@ -70,7 +70,7 @@ public static class Util
         return (a + b) * 0.5f;
     }
 
-    public static float GetDistance(Character from, Character to, bool ignoreY = true)
+    public static float GetDistance(CharacterActor from, CharacterActor to, bool ignoreY = true)
     {
         Vector3 fromPos = from.transform.position;
         Vector3 toPos = to.transform.position;
@@ -114,7 +114,7 @@ public static class Util
         return Mathf.Abs(a.y - b.y);
     }
 
-    public static IEnumerator DistanceMatching(Character owner, Vector3 startPos, Vector3 endPos, float duration, bool isRelative = false, bool ignoreY = false)
+    public static IEnumerator DistanceMatching(CharacterActor owner, Vector3 startPos, Vector3 endPos, float duration, bool isRelative = false, bool ignoreY = false)
     {
         float currentTime = 0f;
         Vector3 direction = GetDirection(startPos, endPos, false);

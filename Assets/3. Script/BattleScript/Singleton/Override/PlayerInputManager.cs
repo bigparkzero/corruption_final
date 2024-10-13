@@ -17,9 +17,10 @@ public enum EKeyName
     Interact,
 
     Attack,
-    Skill,
-
-    Toggle_Morph_Screen
+    Skill1,
+    Skill2,
+    Skill3,
+    Skill4,
 }
 
 public class PlayerInputManager : Singleton<PlayerInputManager>
@@ -59,10 +60,16 @@ public class PlayerInputManager : Singleton<PlayerInputManager>
                 return KeyCode.G;
             case EKeyName.Attack:
                 return KeyCode.Mouse0;
-            case EKeyName.Skill:
+            case EKeyName.Skill1:
                 return KeyCode.Alpha1;
-            case EKeyName.Toggle_Morph_Screen:
-                return KeyCode.R;
+            case EKeyName.Skill2:
+                return KeyCode.Alpha2;
+            case EKeyName.Skill3:
+                return KeyCode.Alpha3;
+            case EKeyName.Skill4:
+                return KeyCode.Alpha4;
+            //case EKeyName.Toggle_Morph_Screen:
+            //    return KeyCode.R;
             default:
                 return KeyCode.None;
         }

@@ -37,14 +37,14 @@ public struct WeaponSFX
     public List<AudioClip> attackClips;
     public List<AudioClip> hitClips;
 
-    public void PlayAttackSFX(Character owner, float volume = 1f)
+    public void PlayAttackSFX(CharacterActor owner, float volume = 1f)
     {
         if (owner.characterAudio == null || attackClips.Count <= 0) return;
 
         owner.characterAudio.PlayOneShot(attackClips[UnityEngine.Random.Range(0, attackClips.Count)], volume);
     }
 
-    public void PlayHitSFX(Character owner, float volume = 1f)
+    public void PlayHitSFX(CharacterActor owner, float volume = 1f)
     {
         if (owner.characterAudio == null || hitClips.Count <= 0) return;
 

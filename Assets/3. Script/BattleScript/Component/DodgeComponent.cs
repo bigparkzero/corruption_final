@@ -4,7 +4,7 @@ using UnityEngine.Events;
 
 public class DodgeComponent : MonoBehaviour
 {
-    Character owner;
+    CharacterActor owner;
 
     float duration = 0.25f;
     float moveDistance = 5.0f;
@@ -13,12 +13,12 @@ public class DodgeComponent : MonoBehaviour
     UnityAction beginEvent;
     UnityAction endEvent;
 
-    Coroutine C_Dodge;
-    Coroutine C_DistanceMatching;
+    [HideInInspector] public Coroutine C_Dodge;
+    [HideInInspector] public Coroutine C_DistanceMatching;
 
     private void Start()
     {
-        owner = GetComponent<Character>();
+        owner = GetComponent<CharacterActor>();
 
         beginEvent += InvincibilityEnable;
         endEvent += InvincibilityDisable;
@@ -26,6 +26,8 @@ public class DodgeComponent : MonoBehaviour
 
     IEnumerator Roll(Vector3 direction)
     {
+        if (direction == Vector3.zero) direction = transform.forward;
+
         Vector3 moveDirection = direction * moveDistance;
         Vector3 offset = transform.TransformDirection(0, 0, moveDistance);
         if (direction != Vector3.zero) offset = Vector3.zero;
@@ -46,6 +48,8 @@ public class DodgeComponent : MonoBehaviour
 
     IEnumerator Dash(Vector3 direction)
     {
+        if (direction == Vector3.zero) direction = transform.forward;
+
         Vector3 moveDirection = direction * moveDistance;
         Vector3 offset = transform.TransformDirection(0, 0, moveDistance);
         if (direction != Vector3.zero) offset = Vector3.zero;

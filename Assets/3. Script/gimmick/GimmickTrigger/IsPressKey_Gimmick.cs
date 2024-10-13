@@ -19,7 +19,7 @@ public class IsPressKey_Gimmick : GimmickTrigger
             if (Input.GetKeyDown(ChecKkeyCode) && !isanykey)
             {
                 InvokeEventRunOnTrigger();
-            }
+            } 
             if (Input.anyKeyDown && isanykey)
             {
                 InvokeEventRunOnTrigger();

@@ -27,8 +27,8 @@ MonoBehaviour:
   hasMovementInput: 0
   previousVelocity: {x: 0, y: 0, z: 0}
   currentMovementSettings:
-    walkSpeed: 4
-    sprintSpeed: 10
+    walkSpeed: 1.65
+    sprintSpeed: 7
     currentSpeed: 0
   velocity: {x: 0, y: 0, z: 0}
   groundLayer:
@@ -47,8 +47,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0.00343718
-      value: -100.51428
+      time: 0.053554673
+      value: -25.652344
       inSlope: 2
       outSlope: 2
       tangentMode: 0

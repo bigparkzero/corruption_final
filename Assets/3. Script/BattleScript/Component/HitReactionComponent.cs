@@ -151,7 +151,7 @@ public struct HitReactionDatas
 public class HitReactionComponent : MonoBehaviour
 {
     [Header("[Component]")]
-    Character owner;
+    CharacterActor owner;
 
     [Header("[Hit Reaction Component]")]
     public CombatData combatData;
@@ -170,7 +170,7 @@ public class HitReactionComponent : MonoBehaviour
 
     private void Start()
     {
-        owner = GetComponent<Character>();
+        owner = GetComponent<CharacterActor>();
     }
 
     public void SetHitReaction(List<HitReactionData> data)
@@ -204,7 +204,7 @@ public class HitReactionComponent : MonoBehaviour
 
     #region Combat
 
-    public IEnumerator Knockback(HitKnockback hitKnockback, Character causer)
+    public IEnumerator Knockback(HitKnockback hitKnockback, CharacterActor causer)
     {
         float knockbackTime = hitKnockback.knockbackTime;
         Vector3 direction = Util.GetDirection(causer.transform.position, owner.transform.position);
@@ -237,7 +237,7 @@ public class HitReactionComponent : MonoBehaviour
         }
     }
 
-    private IEnumerator Airborne(HitAirborne hitAirborne, Character hitActor = null)
+    private IEnumerator Airborne(HitAirborne hitAirborne, CharacterActor hitActor = null)
     {
         owner.locomotionData.isJump = true;
         owner.locomotionData.isGrounded = false;
@@ -271,7 +271,7 @@ public class HitReactionComponent : MonoBehaviour
         }
     }
 
-    private IEnumerator AirborneTimer(Character target, float timer)
+    private IEnumerator AirborneTimer(CharacterActor target, float timer)
     {
         target.hitReactionComponent.T_AirborneTimer = Time.time + timer;
         target.animationEvent.Anim_GravityDisable();
@@ -286,17 +286,17 @@ public class HitReactionComponent : MonoBehaviour
         Time.timeScale = 1.0f;
     }
 
-    public void SetKnockback(HitKnockback hitKnockback, Character causer)
+    public void SetKnockback(HitKnockback hitKnockback, CharacterActor causer)
     {
-        if (!hitKnockback.isKnockback) return;
+        //if (!hitKnockback.isKnockback) return;
 
         if (C_Knockback != null) StopCoroutine(C_Knockback);
         C_Knockback = StartCoroutine(Knockback(hitKnockback, causer));
     }
 
-    public void SetAirborne(HitAirborne hitAirborne, Character hitActor = null)
+    public void SetAirborne(HitAirborne hitAirborne, CharacterActor hitActor = null)
     {
-        if (!hitAirborne.isAirborne) return;
+        //if (!hitAirborne.isAirborne) return;
 
         if (hitActor != null && hitActor.locomotionData.isGrounded)
         {
@@ -307,7 +307,7 @@ public class HitReactionComponent : MonoBehaviour
         C_Airborne = StartCoroutine(Airborne(hitAirborne, hitActor));
     }
 
-    public void SetAirborneTimer(Character target, float timer)
+    public void SetAirborneTimer(CharacterActor target, float timer)
     {
         if (target.hitReactionComponent.C_AirborneTimer != null) target.StopCoroutine(target.hitReactionComponent.C_AirborneTimer);
         target.hitReactionComponent.C_AirborneTimer = target.StartCoroutine(AirborneTimer(target, timer));
@@ -364,7 +364,7 @@ public class HitReactionComponent : MonoBehaviour
 
     #region Animation
 
-    public void HitAnimation(Character hitActor)
+    public void HitAnimation(CharacterActor hitActor)
     {
         if (hitReactionData.hitAnimation.hitClip == null) return;
 

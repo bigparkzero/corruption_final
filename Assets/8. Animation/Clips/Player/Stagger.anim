@@ -135008,8 +135008,8 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.6166667
-    functionName: Anim_OffHit
+  - time: 0.5833333
+    functionName: Anim_OnHit
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
