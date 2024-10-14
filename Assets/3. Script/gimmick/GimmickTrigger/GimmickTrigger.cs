@@ -8,6 +8,8 @@ public abstract class GimmickTrigger : MonoBehaviour
 {
     [Header("체크하면 함수 실행후 자기자신 파괴")]
     public bool InvokeEventEndDestroy;
+    [Header("체크하면 함수 실행후 자기자신 비활성화")]
+    public bool InvokeEventEndDeactivate;
     public void test(string text)
     {
         Debug.Log(text);
@@ -108,6 +110,11 @@ public abstract class GimmickTrigger : MonoBehaviour
             }
         }
         print("<color=yellow>" + gameObject.name + "</color>" + "의 모든 이벤트 실행 완료");
+        if (InvokeEventEndDeactivate)
+        {
+            gameObject.SetActive(false);
+            print("<color=yellow>" + gameObject.name + "</color>" + " 비활성화됨");
+        }
         if (InvokeEventEndDestroy)
         {
             Destroy(gameObject);
