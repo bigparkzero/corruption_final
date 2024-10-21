@@ -10,6 +10,7 @@ public abstract class GimmickTrigger : MonoBehaviour
     public bool InvokeEventEndDestroy;
     [Header("체크하면 함수 실행후 자기자신 비활성화")]
     public bool InvokeEventEndDeactivate;
+
     public void test(string text)
     {
         Debug.Log(text);
@@ -19,10 +20,12 @@ public abstract class GimmickTrigger : MonoBehaviour
     {
         Destroy(this.gameObject);
     }
+
     public void DestroyObject(GameObject target)
     {
         Destroy(target);
     }
+
     [System.Serializable]
     public class SimpleEvent : UnityEvent
     {
@@ -44,11 +47,12 @@ public abstract class GimmickTrigger : MonoBehaviour
                     GimmickOutput associatedOutput = targetObj.GetComponent<GimmickOutput>();
                     if (associatedOutput != null)
                     {
-                        associatedOutput.isDone = false;
+                        associatedOutput.isDone = false; // isDone을 false로 설정
                     }
                 }
             }
         }
+
         if (OutputEvent != null && OutputEvent.Count > 0)
         {
             StartCoroutine(InvokeEventsCoroutine());
@@ -58,26 +62,37 @@ public abstract class GimmickTrigger : MonoBehaviour
     private bool isOutputGimmick;
     private bool isDoneAll;
 
-
     private IEnumerator InvokeEventsCoroutine()
     {
-        OutputEvent[0].Invoke();
-
         // OutputEvent 리스트를 순회하면서 하나씩 실행
         for (int i = 0; i < OutputEvent.Count; i++)
         {
-            isOutputGimmick = false;
-            isDoneAll = false; // 매 이벤트마다 초기화
+            // 이벤트 호출
+            OutputEvent[i].Invoke();
 
+            // GimmickOutput의 isDone을 false로 설정
             for (int j = 0; j < OutputEvent[i].GetPersistentEventCount(); j++)
             {
                 Object targetObj = OutputEvent[i].GetPersistentTarget(j);
                 GimmickOutput associatedOutput = targetObj.GetComponent<GimmickOutput>();
                 if (associatedOutput != null)
                 {
-                    isOutputGimmick = true;
+                    associatedOutput.isDone = false; // 이벤트 호출 후 isDone을 false로 설정
                 }
-               
+            }
+
+            isOutputGimmick = false; // Gimmick_Output이 존재하는지 체크
+            isDoneAll = false; // 완료 여부 체크
+
+            // Gimmick_Output 체크
+            for (int j = 0; j < OutputEvent[i].GetPersistentEventCount(); j++)
+            {
+                Object targetObj = OutputEvent[i].GetPersistentTarget(j);
+                GimmickOutput associatedOutput = targetObj.GetComponent<GimmickOutput>();
+                if (associatedOutput != null)
+                {
+                    isOutputGimmick = true; // Gimmick_Output이 존재함
+                }
             }
 
             if (isOutputGimmick)
@@ -85,7 +100,7 @@ public abstract class GimmickTrigger : MonoBehaviour
                 // 해당 오브젝트의 isDone이 true가 될 때까지 대기
                 while (!isDoneAll)
                 {
-                    yield return null;
+                    yield return null; // 매 프레임 대기
                     isDoneAll = true; // 기본적으로 완료된 것으로 설정
                     for (int j = 0; j < OutputEvent[i].GetPersistentEventCount(); j++)
                     {
@@ -98,7 +113,7 @@ public abstract class GimmickTrigger : MonoBehaviour
                         }
                     }
 
-                    print("<color=yellow>" + gameObject.name + "</color>" + "의" + "<color=bule>" + i + "</color>" + " 번째 이벤트 기다리는 중");
+                    Debug.Log("<color=yellow>" + gameObject.name + "</color>" + "의 " + "<color=blue>" + i + "</color>" + " 번째 이벤트 기다리는 중");
                 }
             }
 
@@ -106,37 +121,34 @@ public abstract class GimmickTrigger : MonoBehaviour
             if (i + 1 < OutputEvent.Count)
             {
                 OutputEvent[i + 1].Invoke();
-                print("<color=yellow>" + gameObject.name + "</color>" +" 의"+ "<color=bule>" + i + "</color>" + " 번째 이벤트 실행");
+                Debug.Log("<color=yellow>" + gameObject.name + "</color>" + " 의 " + "<color=blue>" + i + "</color>" + " 번째 이벤트 실행");
             }
         }
-        print("<color=yellow>" + gameObject.name + "</color>" + "의 모든 이벤트 실행 완료");
+
+        Debug.Log("<color=yellow>" + gameObject.name + "</color>" + "의 모든 이벤트 실행 완료");
         if (InvokeEventEndDeactivate)
         {
             gameObject.SetActive(false);
-            print("<color=yellow>" + gameObject.name + "</color>" + " 비활성화됨");
+            Debug.Log("<color=yellow>" + gameObject.name + "</color>" + " 비활성화됨");
         }
         if (InvokeEventEndDestroy)
         {
             Destroy(gameObject);
-            print("<color=yellow>" + gameObject.name + "</color>" + " 삭제됨");
+            Debug.Log("<color=yellow>" + gameObject.name + "</color>" + " 삭제됨");
         }
     }
 
-
-
-
-
-
-
-
     public bool testbool;
     [HideInInspector] public bool isTriggered;
+
     [Header("GimmickInput을 설정할 수 있습니다.\n 설정값이 없을 경우 부모 오브젝트의 GimmickInput를 실행합니다")]
     public GimmickInput GimmickInput;
+
     private void Start()
     {
         isTriggered = false;
     }
+
     public void InvokeEventRunOnTrigger()
     {
         if (GimmickInput != null)
@@ -151,16 +163,16 @@ public abstract class GimmickTrigger : MonoBehaviour
             {
                 InvokeEvent();
             }
-            Debug.LogWarning("gimmick input script not found in parent object!! Please add the gimmick input script to the parent object or place it as a child object of the object with gimmick input.");
+            Debug.LogWarning("Gimmick Input script not found in parent object! Please add the Gimmick Input script to the parent object or place it as a child object of the object with Gimmick Input.");
         }
     }
+
     private void OnValidate()
     {
-
-        GimmickInput GmmiInut = GetComponentInParent<GimmickInput>();
-        if (GmmiInut != null)
+        GimmickInput GmmiInput = GetComponentInParent<GimmickInput>();
+        if (GmmiInput != null)
         {
-            GimmickInput = GmmiInut;
+            GimmickInput = GmmiInput;
         }
         testbool = false;
     }
